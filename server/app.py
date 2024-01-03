@@ -107,6 +107,15 @@ class Logout(Resource):
             return {}, 204
         else:
             return {'Error': "Unauthorized/No login session"}
+        
+class Posts(Resource):
+    def get(self):
+        posts = [p.to_dict() for p in Post.query.all()]
+        
+        return posts, 200
+    def post(self):
+        data = request.get_json()
+        
     
 
 api.add_resource(Users, '/users', endpoint='users')

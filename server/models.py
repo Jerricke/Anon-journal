@@ -43,11 +43,18 @@ class Post(db.Model, SerializerMixin):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
+    @validates("title")
+    def validate_title(self, key, value):
+        if len(value) < 0 and len(value) > 150:
+            raise ValueError("Content must be between 0 and 150 characters")
+        return value
+
     @validates("content")
     def validate_content(self, key, value):
         if len(value) < 0 and len(value) > 1500:

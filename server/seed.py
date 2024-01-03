@@ -35,6 +35,7 @@ if __name__ == '__main__':
         print("seeding posts...")
         for _ in range(30):
             post = Post(
+                title=fake.paragraph(nb_sentences=randint(1,2)),
                 content=fake.paragraph(nb_sentences=randint(5,10)),
                 user_id=randint(1,5)
             )
