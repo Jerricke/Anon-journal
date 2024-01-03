@@ -43,6 +43,7 @@ class Users(Resource):
             newUser.password_hash = password
             db.session.add(newUser)
             db.session.commit()
+            session["user_id"] = newUser.id
 
             return newUser.to_dict(), 201
         else:
@@ -85,7 +86,7 @@ class CheckSession(Resource):
             user = User.query.filter_by(id=session.get('user_id')).first()
 
             return user.to_dict(), 200
-        return {}, 401
+        return {"error": "No active session"}, 401
     
 class Login(Resource):
     def post(self):
@@ -115,8 +116,49 @@ class Posts(Resource):
         return posts, 200
     def post(self):
         data = request.get_json()
-        
-    
+        user_id = session.get('user_id')
+        title = data['title']
+        content = data['content']
+
+        if user_id and title and content:
+            new_post = Post(user_id=user_id, title=title, content=content)
+
+            db.session.add(new_post)
+            db.session.commit()
+            return new_post.to_dict(), 201
+        else:
+            return {"error": "Could not create new psot"}, 422
+
+class PostById(Resource):
+    def get(self, id):
+        post = Post.query.filter_by(id=id).first()
+
+        if post:
+            return post.to_dict(), 200
+        else:
+            return {"error": "Could not find post"}, 404
+    def patch(self, id):
+        post = Post.query.filter_by(id=id).first()
+
+        if post:
+            try:
+                for attr in request.get_json():
+                    setattr(post, attr, request.get_json()[attr])
+                    db.session.add(post)
+                    db.session.commit()
+                    return post.to_dict(), 200
+            except:
+                return {"error": "Could not update post"}, 422
+        else:
+            return {"error": "Could not find post"}, 404
+    def delete(self, id):
+        post = Post.query.filter_by(id=id).first()
+        if post:
+            db.session.delete(post)
+            db.session.commit()
+            return '', 204
+        else:
+            return {'error': 'Could not find post'}, 404
 
 api.add_resource(Users, '/users', endpoint='users')
 api.add_resource(UserById, '/users/<int:id>', endpoint='userById')
@@ -125,6 +167,8 @@ api.add_resource(UserById, '/users/<int:id>', endpoint='userById')
 api.add_resource(CheckSession, '/check_session', endpoint='checkSession')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
+api.add_resource(Posts, '/posts', endpoint='post')
+api.add_resource(PostById, '/posts/<int:id>', endpoint='postById')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
