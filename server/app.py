@@ -3,30 +3,119 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, render_template
-from flask_restful import Resource
+from flask import request, render_template, session
+from flask_restful import Resource, Api
+from datetime import datetime
 
 # Local imports
 from config import app, db, api
 # Add your model imports
 from models import User, Post
 
-
-
-
-@app.route('/')
-def index():
-    return '<h1>Phase 4 Project Server</h1>'
-
+api = Api(app)
 # Views go here! use either route!
-# @app.errorhandler(404)
-# def not_found(e):
-#     return render_template("index.html")
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("index.html")
 
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
-#     return render_template("index.html")
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template("index.html")
+
+class Users(Resource):
+    def get(self):
+        users = [u.to_dict() for u in User.query.all()]
+        return users, 200
+    def post(self):
+        data = request.get_json()
+        username = data['username']
+        password = data['password']
+        password_confirmation = data['password_confirmation']
+        character_top = data['character_top']
+        character_mid = data['character_mid']
+        character_bot = data['character_bot']
+
+        if username and password == password_confirmation and character_top and character_mid and character_bot:
+            newUser = User(username=username, 
+                           character_top=character_top, 
+                           character_mid=character_mid, 
+                           character_bot=character_bot)
+            newUser.password_hash = password
+            db.session.add(newUser)
+            db.session.commit()
+
+            return newUser.to_dict(), 201
+        else:
+            return {'error': 'Could not create user'}, 422
+
+class UserById(Resource):
+    def get(self, id):
+        user = User.query.filter_by(id=id).first()
+        if user:
+            return user.to_dict(), 200
+        else:
+            return {'error': 'Could not find user'}, 404
+    def patch(self, id):
+        user = User.query.filter_by(id=id).first()
+        if user:
+            try:
+                for attr in request.get_json():
+                    setattr(user, attr, request.get_json()[attr])
+
+                db.session.add(user)
+                db.session.commit()
+                return user.to_dict(), 200
+            
+            except:
+                return {'error': 'Could not update user'}, 422
+        else:
+            return {'error': 'Could not find user'}, 404
+    def delete(self, id):
+        user = User.query.filter_by(id=id).first()
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            return '', 204
+        else:
+            return {'error': 'Could not find user'}, 404
+        
+class CheckSession(Resource):
+    def get(self):
+        if session.get('user_id'):
+            user = User.query.filter_by(id=session.get('user_id')).first()
+
+            return user.to_dict(), 200
+        return {}, 401
+    
+class Login(Resource):
+    def post(self):
+        username = request.get_json()['username']
+        password = request.get_json()['password']
+
+        user = User.query.filter_by(username=username).first()
+        if user.authenticate(password):
+            session['user_id'] = user.id
+
+            return user.to_dict(), 200
+        return {'error': '401 Unauthorized'}, 401
+    
+class Logout(Resource):
+    def delete(self):
+        if session.get('user_id'):
+            session['user_id'] = None
+
+            return {}, 204
+        else:
+            return {'Error': "Unauthorized/No login session"}
+    
+
+api.add_resource(Users, '/users', endpoint='users')
+api.add_resource(UserById, '/users/<int:id>', endpoint='userById')
+
+# api endpoints for sessions
+api.add_resource(CheckSession, '/check_session', endpoint='checkSession')
+api.add_resource(Login, '/login', endpoint='login')
+api.add_resource(Logout, '/logout', endpoint='logout')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
