@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+    background-color: #F8F1CB;
+    font-family: 'Handlee', cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* https://codepen.io/dhanishgajjar/pen/bjaYYo */

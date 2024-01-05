@@ -5,10 +5,7 @@ export default function Layout() {
     return (
         <div className="layout">
             <header>
-                <nav>
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="page1">Page1</NavLink>
-                </nav>
+                <nav />
             </header>
             <main>
                 <Outlet />

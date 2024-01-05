@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 
 // layout imports
-import Layout from './Layout';
-import Home from './Home';
-import Page1 from './Page1';
+import Layout from './layouts/Layout';
+import Home from './components/Home';
+import Page1 from './components/Page1';
 
 function App() {
     const router = createBrowserRouter(
