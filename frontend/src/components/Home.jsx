@@ -6,14 +6,17 @@ export default function Home() {
     const navigate = useNavigate();
 
     const proceed = () => {
-        navigate('/page1');
+        navigate('/about');
     };
 
     return (
         <div className="body" onClick={proceed}>
             <div className="book">
                 <div className="back" />
-                <div className="page6" />
+                <div className="page6">
+                    <h1>Click</h1>
+                    <h1>Me</h1>
+                </div>
                 <div className="page5" />
                 <div className="page4" />
                 <div className="page3" />
