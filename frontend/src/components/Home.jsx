@@ -2,12 +2,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import './home.css';
 import { Typewriter } from 'react-simple-typewriter';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+    const navigate = useNavigate();
+    function clickHandler() {
+        navigate('/about');
+    }
+
     return (
         <div className="home">
             <div className="home__heroContainer">
-                <h1 className="home__title">Anon Journal</h1>
+                <button className="home__title" onClick={clickHandler}>
+                    Anon Journal
+                </button>
                 <span className="home__hero">
                     <h1>
                         A place that lets you <br />
@@ -52,14 +60,10 @@ export default function Home() {
                 </div>
             </div>
             <div className="home__actionContainer">
-                <div>
-                    <h1>
-                        Still unsure? Just give it a try! It's totally free.99
-                    </h1>
-                    <button className="btn" onClick={(e) => {}}>
-                        Let's Go!
-                    </button>
-                </div>
+                <h1>Still unsure? Just give it a try! It's totally free.99</h1>
+                <button className="btn" onClick={clickHandler}>
+                    Let's Go!
+                </button>
             </div>
         </div>
     );
