@@ -5,8 +5,28 @@
 
 * {
     font-family: 'Handlee', cursive;
+    color: black;
     margin: 0;
     padding: 0;
+}
+
+:root {
+    background-color: var(--background);
+    --step--2: clamp(0.7813rem, 0.7695rem + 0.0588vw, 0.84rem);
+    --step--1: clamp(0.9375rem, 0.915rem + 0.1125vw, 1.05rem);
+    --step-0: clamp(1.125rem, 1.0875rem + 0.1875vw, 1.3125rem);
+    --step-1: clamp(1.35rem, 1.2919rem + 0.2906vw, 1.6406rem);
+    --step-2: clamp(1.62rem, 1.5339rem + 0.4306vw, 2.0506rem);
+    --step-3: clamp(1.9438rem, 1.8198rem + 0.62vw, 2.5638rem);
+    --step-4: clamp(2.3325rem, 2.1581rem + 0.8719vw, 3.2044rem);
+    --step-5: clamp(2.7994rem, 2.5581rem + 1.2063vw, 4.0056rem);
+
+    --background: #FCF3F3;
+    --primary: #d14444;
+    --secondary: #e5e098;
+    --accent: #b6da6b;
+    --foreground: #faeaeb;
+    --foreground-v2: #f5d0cf;
 }
 
 
