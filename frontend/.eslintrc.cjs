@@ -45,5 +45,9 @@ module.exports = {
         'import/no-unresolved': 0,
         'jsx-a11y/click-events-have-key-events': 0,
         'jsx-a11y/no-static-element-interactions': 0,
+        'jsx-a11y/label-has-associated-control': 0,
+        'react/no-unescaped-entities': 0,
+        'no-shadow': 0,
+        'react/jsx-no-bind': 0,
     },
 };

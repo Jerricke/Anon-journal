@@ -1,0 +1,40 @@
+.login__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    font-size: var(--step-0);
+
+    padding: clamp(1rem, 5vw, 3rem);
+    border-radius: 2rem;
+
+    background-color: var(--foreground-v2);
+}
+
+.login__form label {
+    font-weight: 600;
+}
+
+.login__form input.login__button {
+    margin: 1rem;
+    background-color: var(--accent);
+
+    font-size: var(--step-0);
+    color: black;
+} 
+
+.login__form input {
+    background-color: var(--foreground);
+}
+
+.login__signup:hover {
+    color: var(--primary)
+}

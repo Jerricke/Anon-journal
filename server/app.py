@@ -86,7 +86,7 @@ class CheckSession(Resource):
             user = User.query.filter_by(id=session.get('user_id')).first()
 
             return user.to_dict(), 200
-        return {"error": "No active session"}, 401
+        return {"error": "No active session"}, 404
     
 class Login(Resource):
     def post(self):
