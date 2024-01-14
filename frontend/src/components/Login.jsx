@@ -41,7 +41,6 @@ export default function Login({ onLogin }) {
         },
     });
 
-    const test = 0;
     const { errors } = formik;
     const arrayErrors = Array.from(errors);
 
