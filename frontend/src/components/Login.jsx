@@ -41,7 +41,6 @@ export default function Login({ onLogin }) {
         },
     });
 
-    const test = 0;
     const { errors } = formik;
     const arrayErrors = Array.from(errors);
 
@@ -50,7 +49,7 @@ export default function Login({ onLogin }) {
             <form className="login__form" onSubmit={formik.handleSubmit}>
                 <label>What's your name?</label>
                 <input
-                    className=""
+                    className="login__input"
                     type="text"
                     id="username"
                     name="username"
