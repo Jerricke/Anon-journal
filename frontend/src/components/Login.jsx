@@ -41,7 +41,6 @@ export default function Login({ onLogin }) {
         },
     });
 
-    const test;
     const { errors } = formik;
     const arrayErrors = Array.from(errors);
 
@@ -60,7 +59,7 @@ export default function Login({ onLogin }) {
                 />
                 <label>What's your secret code?</label>
                 <input
-                    className=""
+                    className="login__password"
                     type="password"
                     id="password"
                     name="password"
