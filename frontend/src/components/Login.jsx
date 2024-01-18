@@ -59,7 +59,7 @@ export default function Login({ onLogin }) {
                 />
                 <label>What's your secret code?</label>
                 <input
-                    className="login__password"
+                    className="login__passwordd"
                     type="password"
                     id="password"
                     name="password"
