@@ -57,7 +57,7 @@ export default function Login({ onLogin }) {
                     value={formik.values.username}
                     onChange={formik.handleChange}
                 />
-                <label>What's your secret code?</label>
+                <label>What's your secret code? (password)</label>
                 <input
                     className="login__passwordd"
                     type="password"
