@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { useNavigate, NavLink } from 'react-router-dom';
 import * as yup from 'yup';
 
-export default function Signup() {
+export default function Signup({ onSignup }) {
     const navigate = useNavigate();
 
     const formSchema = yup.object().shape({
