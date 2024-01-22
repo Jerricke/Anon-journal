@@ -30,7 +30,7 @@ export default function Signup({ onSignup }) {
                 body: JSON.stringify(values, null, 2),
             }).then((res) => {
                 if (res.ok) {
-                    res.json().then((user) => onLogin(user));
+                    res.json().then((user) => onSignup(user));
                     navigate('../user/home');
                 } else {
                     Error('invalid credentials');
