@@ -41,5 +41,9 @@ export default function Signup({ onSignup }) {
 
     const { errors } = formik;
     const arrayErrors = Array.from(errors);
-    return <div>Signup</div>;
+    return (
+        <div>
+            <div className="form__container" />
+        </div>
+    );
 }
