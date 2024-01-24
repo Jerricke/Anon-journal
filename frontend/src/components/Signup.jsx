@@ -44,6 +44,7 @@ export default function Signup({ onSignup }) {
     return (
         <div>
             <div className="form__container" />
+            <h1>signup</h1>
         </div>
     );
 }
