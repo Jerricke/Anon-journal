@@ -22,10 +22,12 @@ def not_found(e):
 def internal_server_error(e):
     return render_template("index.html")
 
+# localhost:5555/users GET
 class Users(Resource):
     def get(self):
         users = [u.to_dict() for u in User.query.all()]
         return users, 200
+    
     def post(self):
         data = request.get_json()
         username = data['username']
