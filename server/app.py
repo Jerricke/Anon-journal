@@ -59,7 +59,7 @@ class UserById(Resource):
         else:
             return {'error': 'Could not find user'}, 404
     def patch(self, id):
-        user = User.query.filter_by(id=id).first()
+        user = User.q`uery.filter_by(id=id).first()
         if user:
             try:
                 for attr in request.get_json():
