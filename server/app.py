@@ -22,7 +22,7 @@ def not_found(e):
 def internal_server_error(e):
     return render_template("index.html")
 
-# localhost:5555/users GET
+
 class Users(Resource):
     def get(self):
         users = [u.to_dict() for u in User.query.all()]
@@ -59,7 +59,7 @@ class UserById(Resource):
         else:
             return {'error': 'Could not find user'}, 404
     def patch(self, id):
-        user = User.q`uery.filter_by(id=id).first()
+        user = User.query.filter_by(id=id).first()
         if user:
             try:
                 for attr in request.get_json():
