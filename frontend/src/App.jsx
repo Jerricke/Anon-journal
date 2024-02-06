@@ -31,6 +31,9 @@ function App() {
     function handleLogin(user) {
         setUser(user);
     }
+    function handleLogin(user) {
+        setUser(user);
+    }
 
     const router = createBrowserRouter(
         createRoutesFromElements(
